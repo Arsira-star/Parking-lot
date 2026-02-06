@@ -1,0 +1,34 @@
+[
+  {
+    "plate_number": "LRG-111",
+    "car_size": "medium",
+    "slot_number": 1,
+    "create_date": "2026-02-06T09:24:49.784Z",
+    "update_date": "2026-02-06T09:32:41.621Z",
+    "status": "leave"
+  },
+  {
+    "plate_number": "LRG-111",
+    "car_size": "medium",
+    "slot_number": 2,
+    "create_date": "2026-02-06T09:24:49.785Z",
+    "update_date": "2026-02-06T09:32:34.436Z",
+    "status": "leave"
+  },
+  {
+    "plate_number": "xyz-789",
+    "car_size": "medium",
+    "slot_number": 1,
+    "create_date": "2026-02-06T09:36:56.437Z",
+    "update_date": "2026-02-06T09:40:54.810Z",
+    "status": "leave"
+  },
+  {
+    "plate_number": "xyz-789",
+    "car_size": "medium",
+    "slot_number": 2,
+    "create_date": "2026-02-06T09:36:56.437Z",
+    "update_date": "2026-02-06T09:40:57.807Z",
+    "status": "leave"
+  }
+]
