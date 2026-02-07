@@ -1,13 +1,22 @@
 # Parking Lot API
 
-Node.js + Express API for smart parking lot management with persistent mock database. Designed for sensor-based parking system where each sensor sends events as cars park/leave individual slots.
+Node.js + Express API for smart parking lot management with MongoDB. Designed for sensor-based parking system where each sensor sends events as cars park/leave individual slots.
 
 ## Quick Start
 
 ```bash
-cd "D:\Test Thaivivat\Parking-lot-api"
+# Install dependencies
 npm install
+
+# Setup MongoDB connection in .env file
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?appName=ClusterForTest
+# MONGODB_DB_NAME=Parking_lots
+# PORT=3000
+
+# Start server
 npm start
+# or for development with auto-reload
+npm run dev
 ```
 
 Server runs on `http://localhost:3000`
@@ -353,21 +362,23 @@ curl -X POST http://localhost:3000/api/cars/leave \
 ```
 Parking-lot-api/
 ├── index.js                  # Main server entry point
+├── .env                      # Environment variables (MongoDB connection)
 ├── package.json              # Dependencies
 ├── README.md                 # This file
 ├── controllers/
-│   └── parkingController.js  # Request handlers
+│   └── parkingController.js  # Request handlers with business logic
 ├── routes/
 │   └── parkingRoutes.js      # API route definitions
 ├── db/
-│   ├── mockDatabase.js       # Database layer
-│   ├── parking_area.json     # Parking slots data
-│   └── car_register.json     # Car registration data
+│   ├── connection.js         # MongoDB connection
+│   ├── database.js           # MongoDB database operations
+│   ├── car_register.json     # (Legacy) Car registration data
+│   └── parking_area.json     # (Legacy) Parking slots data
 ├── models/
-│   ├── parkingAreaModel.js   # Parking area schema
-│   ├── carModel.js           # Car register schema
-│   ├── requestModels.js      # Request body schemas
-│   └── responseModels.js     # Response schemas
+│   ├── parkingAreaModel.js   # Mongoose parking area schema
+│   └── carModel.js           # Mongoose car register schema
+├── utils/
+│   └── validators.js         # Input validation functions
 └── constants/
     ├── errors.js             # Error messages
     ├── messages.js           # Success messages
@@ -378,14 +389,14 @@ Parking-lot-api/
 
 ## Notes
 
-- Mock database persists to JSON files: `parking_area.json` and `car_register.json`
+- Database: MongoDB with Mongoose ODM
+- Environment: Connection details in `.env` file (MongoDB URI and database name)
+- Validation: Input validation logic extracted to `utils/validators.js`
+- Database module: Pure CRUD operations only, business logic in controllers
 - For multi-slot cars (medium/large), each record occupies exactly one slot
 - Deleted slots are flagged as inactive (`active: false`) for audit trail
 - All timestamps are ISO 8601 format
 - Sensor-based system: no pre-validation before parking, sensors provide authoritative data
-  "active": true,
-  "update_date": "2026-02-06T10:00:00.000Z"
-}
 ```
 
 | Field | Type | Description |

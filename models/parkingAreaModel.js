@@ -1,24 +1,34 @@
-// Parking Area Database Schema
-// This model represents the structure of a parking slot record in the database
+const { getDb } = require('../db/connection');
 
-const ParkingAreaSchema = {
-  slot_number: Number,        // Unique slot identifier (1-20)
-  slot_available: Boolean,    // Whether slot is free or occupied
-  active: Boolean,            // Whether slot is active (true) or deleted (false)
-  update_date: String         // ISO timestamp of last update
-};
+const COLLECTION_NAME = 'parking_area';
 
-// Parking slot instance
+// Helper function to get the parking area collection
+function getParkingAreaCollection() {
+  const db = getDb();
+  return db.collection(COLLECTION_NAME);
+}
+
+// Helper function to create a parking slot document
 function createSlot(slotNumber) {
   return {
     slot_number: slotNumber,
     slot_available: true,
     active: true,
-    update_date: new Date().toISOString()
+    update_date: new Date()
   };
 }
 
+// Helper function to insert a parking slot
+async function insertSlot(slotNumber) {
+  const collection = getParkingAreaCollection();
+  const slot = createSlot(slotNumber);
+  const result = await collection.insertOne(slot);
+  return result;
+}
+
 module.exports = {
-  ParkingAreaSchema,
-  createSlot
+  getParkingAreaCollection,
+  createSlot,
+  insertSlot,
+  COLLECTION_NAME
 };
