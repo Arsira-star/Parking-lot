@@ -4,13 +4,11 @@ const COLLECTION_NAME = 'car_register';
 const VALID_CAR_SIZES = ['small', 'medium', 'large'];
 const VALID_STATUSES = ['park', 'leave', null];
 
-// Helper function to get the car register collection
 function getCarRegisterCollection() {
   const db = getDb();
   return db.collection(COLLECTION_NAME);
 }
 
-// Helper function to create a new car record document
 function createCarRecord(plateNumber, carSize, slotNumber = null, status = null) {
   if (!VALID_CAR_SIZES.includes(carSize)) {
     throw new Error(`Invalid car_size: ${carSize}. Must be one of ${VALID_CAR_SIZES.join(', ')}`);
@@ -28,7 +26,6 @@ function createCarRecord(plateNumber, carSize, slotNumber = null, status = null)
   };
 }
 
-// Helper function to insert a car record
 async function insertCarRecord(plateNumber, carSize, slotNumber = null, status = null) {
   const collection = getCarRegisterCollection();
   const record = createCarRecord(plateNumber, carSize, slotNumber, status);

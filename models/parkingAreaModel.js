@@ -2,13 +2,11 @@ const { getDb } = require('../db/connection');
 
 const COLLECTION_NAME = 'parking_area';
 
-// Helper function to get the parking area collection
 function getParkingAreaCollection() {
   const db = getDb();
   return db.collection(COLLECTION_NAME);
 }
 
-// Helper function to create a parking slot document
 function createSlot(slotNumber) {
   return {
     slot_number: slotNumber,
@@ -18,7 +16,6 @@ function createSlot(slotNumber) {
   };
 }
 
-// Helper function to insert a parking slot
 async function insertSlot(slotNumber) {
   const collection = getParkingAreaCollection();
   const slot = createSlot(slotNumber);

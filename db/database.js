@@ -1,27 +1,17 @@
-// MongoDB Database Module
-// This module provides low-level database operations only
-// All business logic should be in the controller
-
 const { getParkingAreaCollection, createSlot } = require('../models/parkingAreaModel');
 const { getCarRegisterCollection, createCarRecord } = require('../models/carModel');
-
-// ===== PARKING AREA OPERATIONS (Database only) =====
 
 async function initializeParkingLot(totalSlots) {
   try {
     const collection = getParkingAreaCollection();
     
-    // Remove all existing records
     await collection.deleteMany({});
-    
-    // Create new slots
     const slots = Array.from({ length: totalSlots }, (_, i) => ({
       slot_number: i + 1,
       slot_available: true,
       active: true,
       update_date: new Date()
     }));
-    
     await collection.insertMany(slots);
     return slots;
   } catch (error) {
@@ -165,19 +155,15 @@ async function isSlotInUse(slotNumber) {
   }
 }
 
-// ===== CAR REGISTER OPERATIONS (Database only) =====
-
 async function registerCar(plateNumber, carSize) {
   try {
     const collection = getCarRegisterCollection();
     const existing = await collection.findOne({ plate_number: plateNumber });
     if (existing) {
-      return null; // Car already registered
+      return null;
     }
-    
     const SLOT_SIZE_MAP = { small: 1, medium: 2, large: 3 };
     const recordsNeeded = SLOT_SIZE_MAP[carSize];
-    
     const newRecords = [];
     for (let i = 0; i < recordsNeeded; i++) {
       const record = createCarRecord(plateNumber, carSize, null, null);
@@ -205,11 +191,9 @@ async function parkCarAtSlot(plateNumber, slotNumber) {
     const collection = getCarRegisterCollection();
     const carRecords = await collection.find({ plate_number: plateNumber }).toArray();
     const targetRecord = carRecords.find(r => !r.slot_number);
-    
     if (!targetRecord) {
       return null;
     }
-    
     const result = await collection.findOneAndUpdate(
       { _id: targetRecord._id },
       { $set: { slot_number: slotNumber, status: 'park', update_date: new Date() } },
@@ -269,9 +253,7 @@ async function getAllCars() {
   }
 }
 
-// Export database API
 module.exports = {
-  // Parking Area Operations
   initializeParkingLot,
   hasOccupiedSlots,
   getParkingArea,
@@ -283,8 +265,6 @@ module.exports = {
   addEmptySlot,
   inactivateSlot,
   isSlotInUse,
-
-  // Car Register Operations
   registerCar,
   getCarByPlate,
   parkCarAtSlot,

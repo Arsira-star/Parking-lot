@@ -12,7 +12,6 @@ const validateMongoUri = (uri) => {
     const parsed = new URL(uri);
     hostname = parsed.hostname; 
   } catch (err) {
-
     const match = uri.match(/@([^\/\?]+)/);
     if (match && match[1]) {
       hostname = match[1].split(':')[0];

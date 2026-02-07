@@ -10,7 +10,6 @@ app.use('/api', parkingRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB and start server
 connectToDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`Parking-lot API listening on port ${PORT}`);
@@ -20,7 +19,6 @@ connectToDatabase().then(() => {
   process.exit(1);
 });
 
-// Handle graceful shutdown
 process.on('SIGINT', async () => {
   console.log('\nShutting down gracefully...');
   await disconnectFromDatabase();

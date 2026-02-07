@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # Node.js API service
   api:
     build: .
     container_name: parking-lot-api
@@ -18,14 +17,12 @@ services:
       - parking-network
     restart: unless-stopped
 
-# Volumes for persistent data
 volumes:
   mongodb_data:
     driver: local
   mongodb_config:
     driver: local
 
-# Network for service communication
 networks:
   parking-network:
     driver: bridge

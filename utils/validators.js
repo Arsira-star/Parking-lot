@@ -7,13 +7,6 @@ const SLOT_SIZE_MAP = {
   large: 3
 };
 
-// ===== VALIDATION FUNCTIONS =====
-
-/**
- * Validate total slots for parking lot initialization
- * @param {*} totalSlots - Total number of slots to create
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validateTotalSlots(totalSlots) {
   if (!Number.isInteger(totalSlots) || totalSlots <= 0) {
     return {
@@ -25,12 +18,6 @@ function validateTotalSlots(totalSlots) {
   return { valid: true };
 }
 
-/**
- * Validate plate number and car size for car registration
- * @param {string} plateNumber - Vehicle plate number
- * @param {string} carSize - Vehicle size (small, medium, large)
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validatePlateAndSize(plateNumber, carSize) {
   if (!plateNumber || !carSize) {
     return {
@@ -51,11 +38,6 @@ function validatePlateAndSize(plateNumber, carSize) {
   return { valid: true };
 }
 
-/**
- * Validate plate number
- * @param {string} plateNumber - Vehicle plate number
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validatePlateNumber(plateNumber) {
   if (!plateNumber) {
     return {
@@ -67,11 +49,6 @@ function validatePlateNumber(plateNumber) {
   return { valid: true };
 }
 
-/**
- * Validate slot number
- * @param {*} slotNumber - Parking slot number
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validateSlotNumber(slotNumber) {
   if (!slotNumber) {
     return {
@@ -83,11 +60,6 @@ function validateSlotNumber(slotNumber) {
   return { valid: true };
 }
 
-/**
- * Validate car size from query parameter
- * @param {string} size - Car size query parameter
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validateCarSize(size) {
   if (!size) {
     return {
@@ -104,15 +76,9 @@ function validateCarSize(size) {
       status: HTTP_STATUS.BAD_REQUEST
     };
   }
-
   return { valid: true };
 }
 
-/**
- * Validate slot number from query parameter
- * @param {*} slotNumber - Slot number from query
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validateSlotNumberQuery(slotNumber) {
   if (!slotNumber) {
     return {
@@ -124,11 +90,6 @@ function validateSlotNumberQuery(slotNumber) {
   return { valid: true };
 }
 
-/**
- * Validate amount for adding slots
- * @param {*} amount - Number of slots to add
- * @returns {Object} { valid: boolean, error: string|null, status: number|null }
- */
 function validateAmount(amount) {
   if (amount === undefined || amount === null) {
     return {
